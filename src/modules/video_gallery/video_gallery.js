@@ -1,29 +1,38 @@
 const model = require("./model")
+const { signUser, verifyUser } = require("../../lib/jwt")
 
 module.exports = {
     new_video_gallery: async (req, res) => {
         try {
-            const {
-                video_title_uz,
-                video_title_ru,
-                video_title_krl,
-                video_title_en,
-                video_1,
-                video_2,
-                video_3
-            } = req.body
-            const rows = await model.new_Video_gallery(video_title_uz,
-                video_title_ru,
-                video_title_krl,
-                video_title_en,
-                video_1,
-                video_2,
-                video_3)
-            if(rows) {
-                res.send("ok")
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const {
+                    video_title_uz,
+                    video_title_ru,
+                    video_title_krl,
+                    video_title_en,
+                    video_1,
+                    video_2,
+                    video_3
+                } = req.body
+                const rows = await model.new_Video_gallery(video_title_uz,
+                    video_title_ru,
+                    video_title_krl,
+                    video_title_en,
+                    video_1,
+                    video_2,
+                    video_3)
+                if(rows) {
+                    res.send("ok")
+                }else {
+                    res.send("error")
+                }
             }else {
-                res.send("error")
+                res.send("not admin")
             }
+            
         }catch (e) {
             console.log(e)
         }
@@ -51,34 +60,50 @@ module.exports = {
     },
     update_video_gallery: async (req, res) => {
         try {
-            const {
-                video_title_uz,
-                video_title_ru,
-                video_title_krl,
-                video_title_en,
-                video_1,
-                video_2,
-                video_3,
-                video_id  
-            } = req.body
-            const rows = await model.Update_video_gallery(video_title_uz,
-                video_title_ru,
-                video_title_krl,
-                video_title_en,
-                video_1,
-                video_2,
-                video_3,
-                video_id )
-        res.send("ok")
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const {
+                    video_title_uz,
+                    video_title_ru,
+                    video_title_krl,
+                    video_title_en,
+                    video_1,
+                    video_2,
+                    video_3,
+                    video_id  
+                } = req.body
+                const rows = await model.Update_video_gallery(video_title_uz,
+                    video_title_ru,
+                    video_title_krl,
+                    video_title_en,
+                    video_1,
+                    video_2,
+                    video_3,
+                    video_id )
+                    res.send("ok")
+            }else {
+                res.send("not admin")
+            }
+            
         }catch(e) {
             console.log(e)
         }
     },
     delete_video_gallery: async (req, res) => {
         try {
-            const {gallery_id} = req.body
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const {gallery_id} = req.body
             const rows = await model.Delete_video_gallery(gallery_id)
             res.send("ok")
+            }else {
+                res.send("not admin")
+            }
+            
         }catch (e) {
             console.log(e)
         }

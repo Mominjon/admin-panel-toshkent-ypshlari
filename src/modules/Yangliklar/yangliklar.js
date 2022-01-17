@@ -1,31 +1,14 @@
 const model = require("./model")
+const { signUser, verifyUser } = require("../../lib/jwt")
 
 module.exports = {
     new_Yanglik: async (req, res) => {
         try {
-            const {yangliklar_title_uz,
-                yangliklar_title_ru,
-                yangliklar_title_krl,
-                yangliklar_title_en,
-                yangliklar_short_text_uz,
-                yangliklar_short_text_ru,
-                yangliklar_short_text_krl,
-                yangliklar_short_text_en,
-                yangliklar_long_title_uz,
-                yangliklar_long_title_ru,
-                yangliklar_long_title_krl,
-                yangliklar_long_title_en,
-                yangliklar_date,
-                yangliklar_img_1,
-                yangliklar_img_2,
-                yangliklar_img_3,
-                yangliklar_img_4,
-                yangliklar_img_5,
-                yangliklar_video_link_1,
-                yangliklar_video_link_2,
-                yangliklar_video_link_3} = req.body
-
-                const rows = await model.New_Yanglik(yangliklar_title_uz,
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const {yangliklar_title_uz,
                     yangliklar_title_ru,
                     yangliklar_title_krl,
                     yangliklar_title_en,
@@ -45,12 +28,38 @@ module.exports = {
                     yangliklar_img_5,
                     yangliklar_video_link_1,
                     yangliklar_video_link_2,
-                    yangliklar_video_link_3)
-            if(rows) {
-                res.send("ok")
+                    yangliklar_video_link_3} = req.body
+    
+                    const rows = await model.New_Yanglik(yangliklar_title_uz,
+                        yangliklar_title_ru,
+                        yangliklar_title_krl,
+                        yangliklar_title_en,
+                        yangliklar_short_text_uz,
+                        yangliklar_short_text_ru,
+                        yangliklar_short_text_krl,
+                        yangliklar_short_text_en,
+                        yangliklar_long_title_uz,
+                        yangliklar_long_title_ru,
+                        yangliklar_long_title_krl,
+                        yangliklar_long_title_en,
+                        yangliklar_date,
+                        yangliklar_img_1,
+                        yangliklar_img_2,
+                        yangliklar_img_3,
+                        yangliklar_img_4,
+                        yangliklar_img_5,
+                        yangliklar_video_link_1,
+                        yangliklar_video_link_2,
+                        yangliklar_video_link_3)
+                if(rows) {
+                    res.send("ok")
+                }else {
+                    res.send("error")
+                }
             }else {
-                res.send("error")
+                res.send("not admin")
             }
+            
         }catch (e) {
             console.log(e)
         }
@@ -80,31 +89,11 @@ module.exports = {
     },
     update_yanglik: async (req, res) => {
         try {
-            const { 
-                yangliklar_title_uz,
-                yangliklar_title_ru,
-                yangliklar_title_krl,
-                yangliklar_title_en,
-                yangliklar_short_text_uz,
-                yangliklar_short_text_ru,
-                yangliklar_short_text_krl,
-                yangliklar_short_text_en,
-                yangliklar_long_title_uz,
-                yangliklar_long_title_ru,
-                yangliklar_long_title_krl,
-                yangliklar_long_title_en,
-                yangliklar_date,
-                yangliklar_img_1,
-                yangliklar_img_2,
-                yangliklar_img_3,
-                yangliklar_img_4,
-                yangliklar_img_5,
-                yangliklar_video_link_1,
-                yangliklar_video_link_2,
-                yangliklar_video_link_3,
-                yanglik_id} = req.body 
-
-                const rows = await model.update_Yanglik(
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const { 
                     yangliklar_title_uz,
                     yangliklar_title_ru,
                     yangliklar_title_krl,
@@ -126,20 +115,56 @@ module.exports = {
                     yangliklar_video_link_1,
                     yangliklar_video_link_2,
                     yangliklar_video_link_3,
-                    yanglik_id)
-
-                    res.send("ok")
+                    yanglik_id} = req.body 
+    
+                    const rows = await model.update_Yanglik(
+                        yangliklar_title_uz,
+                        yangliklar_title_ru,
+                        yangliklar_title_krl,
+                        yangliklar_title_en,
+                        yangliklar_short_text_uz,
+                        yangliklar_short_text_ru,
+                        yangliklar_short_text_krl,
+                        yangliklar_short_text_en,
+                        yangliklar_long_title_uz,
+                        yangliklar_long_title_ru,
+                        yangliklar_long_title_krl,
+                        yangliklar_long_title_en,
+                        yangliklar_date,
+                        yangliklar_img_1,
+                        yangliklar_img_2,
+                        yangliklar_img_3,
+                        yangliklar_img_4,
+                        yangliklar_img_5,
+                        yangliklar_video_link_1,
+                        yangliklar_video_link_2,
+                        yangliklar_video_link_3,
+                        yanglik_id)
+    
+                        res.send("ok")
+            }else {
+                res.send("not admin")
+            }
+            
         }catch (e) {
             console.log(e)
         }
     },
     delete_table: async (req, res) => {
         try {
-            const {yanglik_id} = req.body
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const {yanglik_id} = req.body
 
             const rows = await model.delete_Yanglik(yanglik_id)
             
             res.send("ok")
+            }else {
+                res.send("not admin")
+            }
+            
         }catch (e) {
             console.log(e)
         }

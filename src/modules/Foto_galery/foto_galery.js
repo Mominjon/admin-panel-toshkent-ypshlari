@@ -1,26 +1,36 @@
 const model = require("./model")
-
+const { signUser, verifyUser } = require("../../lib/jwt")
 module.exports = {
     new_gallery: async (req, res) => {
         try {
-            const {gallary_title_uz,
-                gallary_title_ru,
-                gallary_title_krl,
-                gallary_title_en,
-                gallary_glavniy,
-                gallary_data} = req.body
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const {gallary_title_uz,
+                    gallary_title_ru,
+                    gallary_title_krl,
+                    gallary_title_en,
+                    gallary_glavniy,
+                    gallary_data} = req.body
 
-            const rows = await model.new_Gallery(gallary_title_uz,
-                gallary_title_ru,
-                gallary_title_krl,
-                gallary_title_en,
-                gallary_glavniy,
-                gallary_data)
-            if(rows) {
-                res.send("ok")
+                const rows = await model.new_Gallery(gallary_title_uz,
+                    gallary_title_ru,
+                    gallary_title_krl,
+                    gallary_title_en,
+                    gallary_glavniy,
+                    gallary_data)
+                if(rows) {
+                    res.send("ok")
+                }else {
+                    res.send("error")
+                }
             }else {
-                res.send("error")
+                res.send("not admin")
             }
+
+               
+            
         }catch (e) {
             console.log(e)
         }
@@ -35,30 +45,46 @@ module.exports = {
     },
     update_Gallerey: async (req, res) => {
         try{
-            const {gallary_title_uz,
-                gallary_title_ru,
-                gallary_title_krl,
-                gallary_title_en,
-                gallary_glavniy,
-                gallary_data,
-                gallary_id} = req.body
-            const rows = await model.Update_galereys(gallary_title_uz,
-                gallary_title_ru,
-                gallary_title_krl,
-                gallary_title_en,
-                gallary_glavniy,
-                gallary_data,
-                gallary_id)
-            res.send("ok")
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const {gallary_title_uz,
+                    gallary_title_ru,
+                    gallary_title_krl,
+                    gallary_title_en,
+                    gallary_glavniy,
+                    gallary_data,
+                    gallary_id} = req.body
+                const rows = await model.Update_galereys(gallary_title_uz,
+                    gallary_title_ru,
+                    gallary_title_krl,
+                    gallary_title_en,
+                    gallary_glavniy,
+                    gallary_data,
+                    gallary_id)
+                res.send("ok")
+            }else {
+                res.send("not admin")
+            }
+            
         }catch (e) {
             console.log(e)
         }
     },
     Delete_Gallery: async (req, res) => {
         try {
-            const { gallery_id } = req.body
-            const rows = await model.Delete_Gallery(gallery_id)
-            res.send("ok")
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const { gallery_id } = req.body
+                const rows = await model.Delete_Gallery(gallery_id)
+                res.send("ok")
+            }else {
+                res.send("not admin")
+            }
+           
         }catch (e) {
             console.log(e)
         }
@@ -68,6 +94,7 @@ module.exports = {
 
     Gallerey_foto : async (req, res) => {
         try {
+
             const {gallery_id} = req.body
             const rows = await model.Gallery_fotos(gallery_id)
             if(rows) {
@@ -81,24 +108,40 @@ module.exports = {
     },
     new_gallery_foto: async (req, res) => {
         try {
-            const { foto, foto_gallary} = req.body
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const { foto, foto_gallary} = req.body
 
-            const rows = await model.new_gallery_Foto(foto, foto_gallary)
-
-            if(rows) {
-                res.send("ok")
+                const rows = await model.new_gallery_Foto(foto, foto_gallary)
+    
+                if(rows) {
+                    res.send("ok")
+                }else {
+                    res.send("error")
+                }
             }else {
-                res.send("error")
+                res.send("not admin")
             }
+           
         }catch (e) {
             console.log(e)
         }
     },
     delete_gallery_foto: async (req, res) => {
         try {
-            const { foto_id } = req.body
-            const rows =await model.delete_Gallery_Foto( foto_id)
-            res.send("ok")
+            const { token } = req.body 
+            let user = ""
+            token ? user = verifyUser(token) : user = "not admin"
+            if(user.isadmin == "admin") {
+                const { foto_id } = req.body
+                const rows =await model.delete_Gallery_Foto( foto_id)
+                res.send("ok")
+            }else {
+                res.send("not admin")
+            }
+           
         }catch (e) {
             console.log(e)
         }

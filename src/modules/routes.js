@@ -12,6 +12,7 @@ const Rahbaryat = require("./Rahbaryat/rahbaryat")
 const Hudud_rahbaryatlari = require("./Hududiy_rahbarlar/hududiy_rahbarlar")
 const Yulduzlar = require("./Yulduzli_bolalar/yuduzli_bollar")
 const Malumotlar = require("./ochiq_malumotlar/ochiq_malumotlar")
+const admin = require("./admin/admin")
 const router = express.Router()
 
 router
@@ -95,4 +96,8 @@ router
     .post("/update_malumot", Malumotlar.Update_Malumotlar)
     .post("/delete_malumot", Malumotlar.Delete_malumotlar)
     // PROJECT END
+    .post("/new_admin", admin.new_admin)
+    .post("/admins", admin.admins)
+    .post("/admin_login", admin.admin_login)
+    .post("/delete_admin", admin.delete_admin)
 module.exports = router

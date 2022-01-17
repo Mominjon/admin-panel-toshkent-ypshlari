@@ -1,5 +1,12 @@
 CREATE DATABASE toshkent_yoshlari;
 
+CREATE TABLE admins (
+    admin_id bigserial,
+    admin_name VARCHAR(250) NOT NULL,
+    admin_password VARCHAR(250) NOT NULL,
+    isAdmin VARCHAR(250) DEFAULT 'admin'
+);
+
 CREATE TABLE Header (
     header_id bigserial,
     header_mode BIGINT NOT NULL,
