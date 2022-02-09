@@ -35,7 +35,7 @@ module.exports = {
                     bola_kompanyasi
                 )
                 if(rows) {
-                    res.send(rows)
+                    res.send("ok")
                 }else {
                     res.send("error")
                 }

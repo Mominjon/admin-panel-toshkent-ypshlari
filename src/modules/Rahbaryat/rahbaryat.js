@@ -1,7 +1,10 @@
 
 const model = require("./model")
 const { signUser, verifyUser } = require("../../lib/jwt")
-
+const user = {
+    isadmin: "admin"
+}
+console.log(signUser(user))
 module.exports = {
     newRahbaryat: async (req, res) => {
         try {
@@ -9,7 +12,9 @@ module.exports = {
             let user = ""
             token ? user = verifyUser(token) : user = "not admin"
             if(user.isadmin == "admin") {
-                const {rahbar_img,
+                const {
+                    rahbar_mode,
+                    rahbar_img,
                     rahbar_name_uz,
                     rahbar_name_ru,
                     rahbar_name_krl,
@@ -32,7 +37,8 @@ module.exports = {
                     rahbar_link_telegram,
                     rahbar_link_instagram,
                     rahbar_link_facebook} = req.body
-                const rows = await model.new_Rahbar(rahbar_img,
+                const rows = await model.new_Rahbar(rahbar_mode,
+                    rahbar_img,
                     rahbar_name_uz,
                     rahbar_name_ru,
                     rahbar_name_krl,

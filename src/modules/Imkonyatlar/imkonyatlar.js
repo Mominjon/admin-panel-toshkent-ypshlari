@@ -8,7 +8,8 @@ module.exports = {
             let user = ""
             token ? user = verifyUser(token) : user = "not admin"
             if(user.isadmin == "admin") {
-                const {imkonyatlar_title_uz,
+                const {
+                    imkonyatlar_title_uz,
                     imkonyatlar_title_ru,
                     imkonyatlar_title_krl,
                     imkonyatlar_title_en,

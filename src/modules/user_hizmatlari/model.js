@@ -26,7 +26,13 @@ const Update_Hisoblagich = (
 
 
 const new_habar = `
-    INSERT INTO habarlar (habar_userName,habar_userEmail,habar_userTelefon,habar_mavzusi,habar_text,habar_date) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *
+    INSERT INTO habarlar (
+        habar_userName,
+        habar_userEmail,
+        habar_userTelefon,
+        habar_mavzusi,
+        habar_text,
+        habar_date) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *
 `
 
 const habarlar = `
@@ -38,7 +44,17 @@ const year = new Date().getFullYear()
 
 const datas = day + "-" + month + "-"+ year
 
-const New_Habar = (habar_userName,habar_userEmail,habar_userTelefon,habar_mavzusi,habar_text) => fetch(new_habar, habar_userName,habar_userEmail,habar_userTelefon,habar_mavzusi,habar_text, datas)
+const New_Habar = (
+    habar_userName,
+    habar_userEmail,
+    habar_userTelefon,
+    habar_mavzusi,
+    habar_text) => fetch(new_habar, 
+        habar_userName,
+        habar_userEmail,
+        habar_userTelefon,
+        habar_mavzusi,
+        habar_text, datas)
 
 const Habarlar = () => fetchAll(habarlar)
 

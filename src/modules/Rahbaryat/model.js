@@ -26,7 +26,7 @@ const new_rahbar = `
         rahbar_link_telegram,
         rahbar_link_instagram,
         rahbar_link_facebook
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $23, $24)   RETURNING *
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)   RETURNING *
 `
 const rahbarlar = `
     SELECT * FROM Rabaryat
@@ -59,7 +59,7 @@ const update_rahbar = `
     rahbar_faolyati_en = $21,
     rahbar_link_telegram = $22,
     rahbar_link_instagram = $23,
-    rahbar_link_facebook = $24 WHERE rahbar_id = $24
+    rahbar_link_facebook = $24 WHERE rahbar_id = $25
 `
 const rahbarni_ishtan_boshatish = `
     DELETE FROM Rabaryat WHERE rahbar_id = $1

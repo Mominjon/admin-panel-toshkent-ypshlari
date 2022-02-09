@@ -13,6 +13,7 @@ const Hudud_rahbaryatlari = require("./Hududiy_rahbarlar/hududiy_rahbarlar")
 const Yulduzlar = require("./Yulduzli_bolalar/yuduzli_bollar")
 const Malumotlar = require("./ochiq_malumotlar/ochiq_malumotlar")
 const admin = require("./admin/admin")
+const user_hizatlari = require("./user_hizmatlari/user_hizmatlari")
 const router = express.Router()
 
 router
@@ -100,4 +101,9 @@ router
     .post("/admins", admin.admins)
     .post("/admin_login", admin.admin_login)
     .post("/delete_admin", admin.delete_admin)
+    // habarlar 
+    .post("/new_user_habarlar", user_hizatlari.New_Habar)
+    .post("/user_habarlari", user_hizatlari.Habarlar)
+    .get("/hisoblagich", user_hizatlari.Hisoblagich)
+    .post("/update_hisoblagich", user_hizatlari.Update_Hisoblagich)
 module.exports = router

@@ -45,7 +45,23 @@ module.exports = {
     },
     New_Habar: async(req, res) => {
         try {
-
+            const {habar_userName,
+                habar_userEmail,
+                habar_userTelefon,
+                habar_mavzusi,
+                habar_text} = req.body
+            const rows = await model.New_Habar(
+                habar_userName,
+                habar_userEmail,
+                habar_userTelefon,
+                habar_mavzusi,
+                habar_text
+            )
+            if(rows) {
+                res.send("ok")
+            }else {
+                res.send("error")
+            }
         }catch(e) {console.log(e)}
     }
 }

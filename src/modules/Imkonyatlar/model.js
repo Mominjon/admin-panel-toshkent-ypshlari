@@ -23,7 +23,7 @@ const new_imkonyat = `
         imkonyatlar_video_link_1,
         imkonyatlar_video_link_2,
         imkonyatlar_video_link_3
-    ) VALUES ($1, $2, $3,$4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING *
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21) RETURNING *
 `
 const imkonyats = `
     SELECT * FROM Imkonyatlar
